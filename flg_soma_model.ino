@@ -124,25 +124,26 @@ unsigned long next_axon_fire_time;
 int sender_state = 1;
 int sender_red, sender_green, sender_blue;
 int sender_sleep;
+int sender_step = 3;
 
 void sender_heartbeat() {
     if (now > next_axon_fire_time) {
-       // Fire the axon between every 16 and 25 seconds
-       next_axon_fire_time = now + 16000 + random(9000);
+       // Fire the axon between every 8 and 12 seconds
+       next_axon_fire_time = now + 8000 + random(4000);
        sender_state = 3;
     }
 
     switch (sender_state) {
         case 1:
             if (sender_blue < 255)
-                sender_blue++, sender_green--;
+                sender_blue += sender_step, sender_green -= sender_step;
             else
                 sender_state++;
             break;
 
         case 2:
             if (sender_green < 255)
-                sender_green++, sender_blue--;
+                sender_green += sender_step,  sender_blue -= sender_step;
             else
                 sender_state--;
             break;
@@ -187,19 +188,20 @@ void sender_heartbeat() {
 int receiver_state = 1;
 int receiver_red, receiver_green, receiver_blue;
 int receiver_sleep;
+int receiver_step = 3;
 
 void receiver_heartbeat() {
     switch (receiver_state) {
         case 1:
             if (receiver_green < 255)
-                receiver_green++, receiver_blue--;
+                receiver_green += receiver_step, receiver_blue -= receiver_step;
             else
                 receiver_state++;
             break;
 
         case 2:
             if (receiver_blue < 255)
-                receiver_blue++, receiver_green--;
+                receiver_blue += receiver_step, receiver_green -= receiver_step;
             else
                 receiver_state--;
             break;
