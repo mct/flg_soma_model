@@ -1,4 +1,4 @@
-// vim:set ts=4 sw=4 ai et:
+// vim:set ts=4 sw=4 ai et syntax=c:
 
 /*
  * Arduino code for lighting FLG's model of Soma.  Written during the week leading
